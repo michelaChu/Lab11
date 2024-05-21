@@ -11,13 +11,25 @@ class Controller:
         self._listColor = []
 
     def fillDD(self):
-        pass
+        anni = [2015,2016,2017,2018]
+        for a in anni:
+            self._view._ddyear.options.append(ft.dropdown.Option(a))
+
+        colori = self._model._allColors
+        for c in colori:
+            self._view._ddcolor.options.append(ft.dropdown.Option(c))
+
+        self._view.update_page()
 
 
     def handle_graph(self, e):
-        pass
-
-
+        self._view.txtOut.controls.clear()
+        self._model.creaGrafo(self._view._ddcolor.value, self._view._ddyear.value)
+        self._view.txtOut.controls.append(ft.Text(f"Numero di nodi: {self._model.getNumNodes()}"))
+        self._view.txtOut.controls.append(ft.Text(f"Numero di archi: {self._model.getNumEdges()}"))
+        for arco in self._model.getTop3():
+            self._view.txtOut.controls.append(ft.Text(f"Arco da a , peso"))
+        self._view.update_page()
 
     def fillDDProduct(self):
         pass
